@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Sampling the Imaginary | Вежби од Statistical Rethinking</title>
+  <meta name="description" content="<p>This is a bookdown that follows the exercises in Richard McElreath’s
+Statistical Rethinking book. Дел од тексот можеби ќе биде и на македонски.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Sampling the Imaginary | Вежби од Statistical Rethinking" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a bookdown that follows the exercises in Richard McElreath’s
+Statistical Rethinking book. Дел од тексот можеби ќе биде и на македонски.</p>" />
+  <meta name="github-repo" content="discindo/statistical_rethinking" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Sampling the Imaginary | Вежби од Statistical Rethinking" />
+  
+  <meta name="twitter:description" content="<p>This is a bookdown that follows the exercises in Richard McElreath’s
+Statistical Rethinking book. Дел од тексот можеби ќе биде и на македонски.</p>" />
+  
+
+<meta name="author" content="Novica Nakov" />
+
+
+<meta name="date" content="2022-01-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="small-worlds-and-large-worlds.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Yet another statistical rethinking solutions bookdown</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> За овој bookdown проект</a></li>
+<li class="chapter" data-level="2" data-path="small-worlds-and-large-worlds.html"><a href="small-worlds-and-large-worlds.html"><i class="fa fa-check"></i><b>2</b> Small Worlds and Large Worlds</a></li>
+<li class="chapter" data-level="3" data-path="sampling-the-imaginary.html"><a href="sampling-the-imaginary.html"><i class="fa fa-check"></i><b>3</b> Sampling the Imaginary</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Вежби од Statistical Rethinking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sampling-the-imaginary" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Sampling the Imaginary</h1>
+<p>Exercises from Chapter 3 of the book.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="sampling-the-imaginary.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb27-2"><a href="sampling-the-imaginary.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span></code></pre></div>
+<p>Лесните прашања го користат кодот од книгата и само правиме пресметки што се опишан во <em>3.2. Sampling to summarize section</em> на книгата.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="sampling-the-imaginary.html#cb28-1" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out=</span><span class="dv">1000</span> )</span>
+<span id="cb28-2"><a href="sampling-the-imaginary.html#cb28-2" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>( <span class="dv">1</span> , <span class="dv">1000</span> )</span>
+<span id="cb28-3"><a href="sampling-the-imaginary.html#cb28-3" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>( <span class="dv">6</span> , <span class="at">size=</span><span class="dv">9</span> , <span class="at">prob=</span>p_grid )</span>
+<span id="cb28-4"><a href="sampling-the-imaginary.html#cb28-4" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb28-5"><a href="sampling-the-imaginary.html#cb28-5" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> posterior <span class="sc">/</span> <span class="fu">sum</span>(posterior)</span>
+<span id="cb28-6"><a href="sampling-the-imaginary.html#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb28-7"><a href="sampling-the-imaginary.html#cb28-7" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">sample</span>( p_grid , <span class="at">prob=</span>posterior , <span class="at">size=</span><span class="fl">1e4</span> , <span class="at">replace=</span><span class="cn">TRUE</span> )</span></code></pre></div>
+<p><em>3E1. How much posterior probability lies below p = 0.2?</em></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="sampling-the-imaginary.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>( samples <span class="sc">&lt;</span> <span class="fl">0.2</span> )</span></code></pre></div>
+<pre><code>## [1] 4e-04</code></pre>
+<p><em>3E2. How much posterior probability lies above p = 0.8?</em></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="sampling-the-imaginary.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>( samples <span class="sc">&gt;</span> <span class="fl">0.8</span> )</span></code></pre></div>
+<pre><code>## [1] 0.1116</code></pre>
+<p><em>3E3. How much posterior probability lies between p = 0.2 and p = 0.8?</em></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="sampling-the-imaginary.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>( samples <span class="sc">&gt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> samples <span class="sc">&lt;</span> <span class="fl">0.8</span> )</span></code></pre></div>
+<pre><code>## [1] 0.888</code></pre>
+<p>Аll three should be 1.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="sampling-the-imaginary.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">mean</span>( samples <span class="sc">&lt;</span> <span class="fl">0.2</span> ), <span class="fu">mean</span>( samples <span class="sc">&gt;</span> <span class="fl">0.8</span> ), <span class="fu">mean</span>( samples <span class="sc">&gt;</span> <span class="fl">0.2</span> <span class="sc">&amp;</span> samples <span class="sc">&lt;</span> <span class="fl">0.8</span> ))</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p><em>3E4. 20% of the posterior probability lies below which value of p?</em></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="sampling-the-imaginary.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(samples, <span class="fl">0.2</span>)</span></code></pre></div>
+<pre><code>##       20% 
+## 0.5185185</code></pre>
+<p><em>3E5. 20% of the posterior probability lies above which value of p?</em></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="sampling-the-imaginary.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(samples, <span class="fl">0.8</span>)</span></code></pre></div>
+<pre><code>##       80% 
+## 0.7557558</code></pre>
+<p><em>3E6. Which values of p contain the narrowest interval equal to 66% of the posterior probability?</em></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="sampling-the-imaginary.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">HPDI</span>( samples , <span class="at">prob=</span><span class="fl">0.66</span> )</span></code></pre></div>
+<pre><code>##     |0.66     0.66| 
+## 0.5085085 0.7737738</code></pre>
+<p>Trying the tidybayes functions. The results are the same.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="sampling-the-imaginary.html#cb43-1" aria-hidden="true" tabindex="-1"></a>tidybayes<span class="sc">::</span><span class="fu">mode_hdi</span>(samples, <span class="at">.width =</span> .<span class="dv">66</span>)</span></code></pre></div>
+<pre><code>##           y      ymin      ymax .width .point .interval
+## 1 0.6477573 0.5085085 0.7737738   0.66   mode       hdi</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="sampling-the-imaginary.html#cb45-1" aria-hidden="true" tabindex="-1"></a>tidybayes<span class="sc">::</span><span class="fu">hdi</span>(samples, <span class="at">.width =</span> .<span class="dv">66</span>)</span></code></pre></div>
+<pre><code>##           [,1]      [,2]
+## [1,] 0.5085085 0.7737738</code></pre>
+<p><em>3E7. Which values of p contain 66% of the posterior probability, assuming equal posterior probability both below and above the interval?</em></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="sampling-the-imaginary.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PI</span>(samples, <span class="at">prob =</span> <span class="fl">0.66</span>)</span></code></pre></div>
+<pre><code>##       17%       83% 
+## 0.5025025 0.7697698</code></pre>
+<p><em>3M1. Suppose the globe tossing data had turned out to be 8 water in 15 tosses. Construct the posterior distribution, using grid approximation. Use the same flat prior as before.</em></p>
+<p>Ова е истиот проблем како лесните, единствено ги менуваме параметрите на <code>dbinom</code>.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="sampling-the-imaginary.html#cb49-1" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">1</span>, <span class="at">length.out=</span><span class="dv">1000</span>)</span>
+<span id="cb49-2"><a href="sampling-the-imaginary.html#cb49-2" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">1000</span>)</span>
+<span id="cb49-3"><a href="sampling-the-imaginary.html#cb49-3" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">8</span>, <span class="at">size=</span><span class="dv">15</span>, <span class="at">prob=</span>p_grid)</span>
+<span id="cb49-4"><a href="sampling-the-imaginary.html#cb49-4" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb49-5"><a href="sampling-the-imaginary.html#cb49-5" aria-hidden="true" tabindex="-1"></a>posterior_3m1 <span class="ot">&lt;-</span> posterior <span class="sc">/</span> <span class="fu">sum</span>(posterior)</span>
+<span id="cb49-6"><a href="sampling-the-imaginary.html#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="sampling-the-imaginary.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(posterior, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3M1-1.png" width="672" /></p>
+<p><em>3M2. Draw 10,000 samples from the grid approximation from above. Then use the samples to calculate the 90% HPDI for p.</em></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="sampling-the-imaginary.html#cb50-1" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">sample</span>( p_grid , <span class="at">prob=</span>posterior_3m1 , <span class="at">size=</span><span class="fl">1e4</span> , <span class="at">replace=</span><span class="cn">TRUE</span> )</span>
+<span id="cb50-2"><a href="sampling-the-imaginary.html#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="sampling-the-imaginary.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">HPDI</span>( samples , <span class="at">prob=</span><span class="fl">0.9</span> )</span></code></pre></div>
+<pre><code>##      |0.9      0.9| 
+## 0.3293293 0.7167167</code></pre>
+<p><em>3M3. Construct a posterior predictive check for this model and data. This means simulate the distribution of samples, averaging over the posterior uncertainty in p.</em></p>
+<p>Ова значи да симулираме податоци од моделот. Делот 3.3.2 од книгата.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="sampling-the-imaginary.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb52-2"><a href="sampling-the-imaginary.html#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="sampling-the-imaginary.html#cb52-3" aria-hidden="true" tabindex="-1"></a>simulate_w <span class="ot">&lt;-</span> <span class="fu">rbinom</span>( <span class="fl">1e4</span> , <span class="at">size=</span><span class="dv">15</span> , <span class="at">prob=</span>samples )</span>
+<span id="cb52-4"><a href="sampling-the-imaginary.html#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="sampling-the-imaginary.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">simplehist</span>(simulate_w)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3M3-1.png" width="672" /></p>
+<p><em>What is the probability of observing 8 water in 15 tosses?</em></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="sampling-the-imaginary.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(simulate_w <span class="sc">==</span> <span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## [1] 0.1489</code></pre>
+<p><em>3M4. Using the posterior distribution constructed from the new (8/15) data, now calculate the probability of observing 6 water in 9 tosses.</em></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="sampling-the-imaginary.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb55-2"><a href="sampling-the-imaginary.html#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="sampling-the-imaginary.html#cb55-3" aria-hidden="true" tabindex="-1"></a>simulate_w <span class="ot">&lt;-</span> <span class="fu">rbinom</span>( <span class="fl">1e4</span> , <span class="at">size=</span><span class="dv">9</span> , <span class="at">prob=</span>samples )</span>
+<span id="cb55-4"><a href="sampling-the-imaginary.html#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="sampling-the-imaginary.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(simulate_w <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## [1] 0.1732</code></pre>
+<p><em>3M5. Start over at 3M1, but now use a prior that is zero below p = 0.5 and a constant above p = 0.5. This corresponds to prior information that a majority of the Earth’s surface is water. Repeat each problem above and compare the inferences. What difference does the better prior make? If it helps, compare inferences (using both priors) to the true value p = 0.7.</em></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="sampling-the-imaginary.html#cb57-1" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out=</span><span class="dv">1000</span> )</span>
+<span id="cb57-2"><a href="sampling-the-imaginary.html#cb57-2" aria-hidden="true" tabindex="-1"></a>prior3m5 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(p_grid <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb57-3"><a href="sampling-the-imaginary.html#cb57-3" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>( <span class="dv">8</span> , <span class="at">size=</span><span class="dv">15</span> , <span class="at">prob=</span>p_grid )</span>
+<span id="cb57-4"><a href="sampling-the-imaginary.html#cb57-4" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior3m5</span>
+<span id="cb57-5"><a href="sampling-the-imaginary.html#cb57-5" aria-hidden="true" tabindex="-1"></a>posterior_3m5 <span class="ot">&lt;-</span> posterior <span class="sc">/</span> <span class="fu">sum</span>(posterior)</span>
+<span id="cb57-6"><a href="sampling-the-imaginary.html#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="sampling-the-imaginary.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid, posterior , <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3M5-1.png" width="672" /></p>
+<p>Сега добиваме <em>posterior</em> дистрибуција која што за вредностите на параметарот под 0.5 практично кажува дека нема шанси да се случат.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="sampling-the-imaginary.html#cb58-1" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">sample</span>( p_grid , <span class="at">prob=</span>posterior_3m5 , <span class="at">size=</span><span class="fl">1e4</span> , <span class="at">replace=</span><span class="cn">TRUE</span> )</span>
+<span id="cb58-2"><a href="sampling-the-imaginary.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="sampling-the-imaginary.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">HPDI</span>( samples , <span class="at">prob=</span><span class="fl">0.9</span> )</span></code></pre></div>
+<pre><code>##      |0.9      0.9| 
+## 0.5005005 0.7167167</code></pre>
+<p><em>HPDI</em> интервалот исто така е многу потесен споредено со 3М2.</p>
+<p><em>3M6. Suppose you want to estimate the Earth’s proportion of water very precisely. Specifically, you want the 99% percentile interval of the posterior distribution of p to be only 0.05 wide. This means the distance between the upper and lower bound of the interval should be 0.05. How many times will you have to toss the globe to do this?</em></p>
+<p>Ова решение го презедов од решенијата што ги пишува Richard McEarleth. Не ми беше јасно прашањето се додека не видов што прави кодот во решението.</p>
+<p>Во овој проблем, всушност непознато е колку обзервации треба да направиме за да ја добиеме саканата прецизност. Решението е такво што <em>ја бара</em> прецизност на серија обзервации (од 20 до 2000).</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="sampling-the-imaginary.html#cb60-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(N) {</span>
+<span id="cb60-2"><a href="sampling-the-imaginary.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  p_true <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
+<span id="cb60-3"><a href="sampling-the-imaginary.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  W <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> N, <span class="at">prob =</span> p_true)</span>
+<span id="cb60-4"><a href="sampling-the-imaginary.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  prob_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb60-5"><a href="sampling-the-imaginary.html#cb60-5" aria-hidden="true" tabindex="-1"></a>  prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">1000</span>)</span>
+<span id="cb60-6"><a href="sampling-the-imaginary.html#cb60-6" aria-hidden="true" tabindex="-1"></a>  prob_data <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(W, <span class="at">size =</span> N, <span class="at">prob =</span> prob_grid)</span>
+<span id="cb60-7"><a href="sampling-the-imaginary.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  posterior <span class="ot">&lt;-</span> prob_data <span class="sc">*</span> prior</span>
+<span id="cb60-8"><a href="sampling-the-imaginary.html#cb60-8" aria-hidden="true" tabindex="-1"></a>  posterior <span class="ot">&lt;-</span> posterior <span class="sc">/</span> <span class="fu">sum</span>(posterior)</span>
+<span id="cb60-9"><a href="sampling-the-imaginary.html#cb60-9" aria-hidden="true" tabindex="-1"></a>  samples <span class="ot">&lt;-</span> <span class="fu">sample</span>(p_grid, <span class="at">prob =</span> posterior, <span class="at">size =</span> <span class="fl">1e4</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb60-10"><a href="sampling-the-imaginary.html#cb60-10" aria-hidden="true" tabindex="-1"></a>  PI99 <span class="ot">&lt;-</span> <span class="fu">PI</span>(samples, .<span class="dv">99</span>)</span>
+<span id="cb60-11"><a href="sampling-the-imaginary.html#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(PI99[<span class="dv">2</span>] <span class="sc">-</span> PI99[<span class="dv">1</span>])</span>
+<span id="cb60-12"><a href="sampling-the-imaginary.html#cb60-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb60-13"><a href="sampling-the-imaginary.html#cb60-13" aria-hidden="true" tabindex="-1"></a>Nlist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>, <span class="dv">1000</span>, <span class="dv">2000</span>)</span>
+<span id="cb60-14"><a href="sampling-the-imaginary.html#cb60-14" aria-hidden="true" tabindex="-1"></a>Nlist <span class="ot">&lt;-</span> <span class="fu">rep</span>(Nlist, <span class="at">each =</span> <span class="dv">100</span>)</span>
+<span id="cb60-15"><a href="sampling-the-imaginary.html#cb60-15" aria-hidden="true" tabindex="-1"></a>width <span class="ot">&lt;-</span> <span class="fu">sapply</span>(Nlist, f)</span>
+<span id="cb60-16"><a href="sampling-the-imaginary.html#cb60-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Nlist, width)</span>
+<span id="cb60-17"><a href="sampling-the-imaginary.html#cb60-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3M6-1.png" width="672" /></p>
+<p><em>3H1. Using grid approximation, compute the posterior distribution for the probability of a birth being a boy. Assume a uniform prior probability.</em></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="sampling-the-imaginary.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(homeworkch3)</span>
+<span id="cb61-2"><a href="sampling-the-imaginary.html#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="sampling-the-imaginary.html#cb61-3" aria-hidden="true" tabindex="-1"></a>all_boys <span class="ot">&lt;-</span> <span class="fu">sum</span>(birth1) <span class="sc">+</span> <span class="fu">sum</span>(birth2)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="sampling-the-imaginary.html#cb62-1" aria-hidden="true" tabindex="-1"></a>p_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>( <span class="at">from=</span><span class="dv">0</span> , <span class="at">to=</span><span class="dv">1</span> , <span class="at">length.out=</span><span class="dv">1000</span> )</span>
+<span id="cb62-2"><a href="sampling-the-imaginary.html#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="sampling-the-imaginary.html#cb62-3" aria-hidden="true" tabindex="-1"></a>prior3h1 <span class="ot">&lt;-</span> prior <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="fu">length</span>(p_grid))</span>
+<span id="cb62-4"><a href="sampling-the-imaginary.html#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="sampling-the-imaginary.html#cb62-5" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>( all_boys , <span class="at">size=</span><span class="fu">length</span>(birth1) <span class="sc">+</span> <span class="fu">length</span>(birth2) , <span class="at">prob=</span>p_grid )</span>
+<span id="cb62-6"><a href="sampling-the-imaginary.html#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="sampling-the-imaginary.html#cb62-7" aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior3h1</span>
+<span id="cb62-8"><a href="sampling-the-imaginary.html#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="sampling-the-imaginary.html#cb62-9" aria-hidden="true" tabindex="-1"></a>posterior_3h1 <span class="ot">&lt;-</span> posterior <span class="sc">/</span> <span class="fu">sum</span>(posterior)</span>
+<span id="cb62-10"><a href="sampling-the-imaginary.html#cb62-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-11"><a href="sampling-the-imaginary.html#cb62-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p_grid, posterior_3h1 , <span class="at">type=</span><span class="st">&quot;l&quot;</span> )</span>
+<span id="cb62-12"><a href="sampling-the-imaginary.html#cb62-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v=</span><span class="fl">0.5</span> , <span class="at">lty=</span><span class="dv">2</span> )</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3H1-1.png" width="672" /></p>
+<p><em>Which parameter value maximizes the posterior probability?</em></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="sampling-the-imaginary.html#cb63-1" aria-hidden="true" tabindex="-1"></a>p_grid[ <span class="fu">which.max</span>(posterior) ]</span></code></pre></div>
+<pre><code>## [1] 0.5545546</code></pre>
+<p>Можеби интересно да се види како ова би се напишало во <code>tidyverse</code> код:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="sampling-the-imaginary.html#cb65-1" aria-hidden="true" tabindex="-1"></a>data_for_3h1 <span class="ot">&lt;-</span></span>
+<span id="cb65-2"><a href="sampling-the-imaginary.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">p_grid_3h1 =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">1000</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-3"><a href="sampling-the-imaginary.html#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prior_3h1 =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-4"><a href="sampling-the-imaginary.html#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_for_3h1 =</span> <span class="fu">dbinom</span>( all_boys , <span class="at">size=</span><span class="fu">length</span>(birth1) <span class="sc">+</span> <span class="fu">length</span>(birth2) , <span class="at">prob=</span>p_grid_3h1 )) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-5"><a href="sampling-the-imaginary.html#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">posterior_3h1 =</span> data_for_3h1 <span class="sc">*</span> prior_3h1) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-6"><a href="sampling-the-imaginary.html#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">posterior_3h1_st =</span> posterior_3h1 <span class="sc">/</span> <span class="fu">sum</span>(posterior_3h1))</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="sampling-the-imaginary.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_for_3h1) <span class="sc">+</span> </span>
+<span id="cb66-2"><a href="sampling-the-imaginary.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> p_grid_3h1, <span class="at">y =</span> posterior_3h1_st) <span class="sc">+</span></span>
+<span id="cb66-3"><a href="sampling-the-imaginary.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb66-4"><a href="sampling-the-imaginary.html#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3H1_3-1.png" width="672" /></p>
+<p><em>3H2. Using the sample function, draw 10,000 random parameter values from the posterior distribution you calculated above. Use these samples to estimate the 50%, 89%, and 97% highest posterior density intervals.</em></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="sampling-the-imaginary.html#cb67-1" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">sample</span>( data_for_3h1<span class="sc">$</span>p_grid_3h1 , <span class="at">prob=</span>data_for_3h1<span class="sc">$</span>posterior_3h1_st , <span class="at">size=</span><span class="fl">1e4</span> , <span class="at">replace=</span><span class="cn">TRUE</span> )</span>
+<span id="cb67-2"><a href="sampling-the-imaginary.html#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="sampling-the-imaginary.html#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(samples)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3H2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="sampling-the-imaginary.html#cb68-1" aria-hidden="true" tabindex="-1"></a>tidybayes<span class="sc">::</span><span class="fu">hdi</span>(samples, <span class="at">.width =</span> .<span class="dv">50</span>)</span></code></pre></div>
+<pre><code>##           [,1]      [,2]
+## [1,] 0.5255255 0.5725726</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="sampling-the-imaginary.html#cb70-1" aria-hidden="true" tabindex="-1"></a>tidybayes<span class="sc">::</span><span class="fu">hdi</span>(samples, <span class="at">.width =</span> .<span class="dv">89</span>)</span></code></pre></div>
+<pre><code>##           [,1]      [,2]
+## [1,] 0.5005005 0.6126126</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="sampling-the-imaginary.html#cb72-1" aria-hidden="true" tabindex="-1"></a>tidybayes<span class="sc">::</span><span class="fu">hdi</span>(samples, <span class="at">.width =</span> .<span class="dv">97</span>)</span></code></pre></div>
+<pre><code>##           [,1]      [,2]
+## [1,] 0.4774775 0.6276276</code></pre>
+<p><em>3H3. Use rbinom to simulate 10,000 replicates of 200 births. You should end up with 10,000 numbers, each one a count of boys out of 200 births. Compare the distribution of predicted numbers of boys to the actual count in the data (111 boys out of 200 births). There are many good ways to visualize the simulations, but the dens command (part of the rethinking package) is probably the easiest way in this case. Does it look like the model fits the data well? That is, does the distribution of predictions include the actual observation as a central, likely outcome?</em></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="sampling-the-imaginary.html#cb74-1" aria-hidden="true" tabindex="-1"></a>simulate <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">births =</span> <span class="fu">rbinom</span>( <span class="dv">10000</span> , <span class="at">size=</span><span class="dv">200</span> , <span class="at">prob=</span>samples ))</span>
+<span id="cb74-2"><a href="sampling-the-imaginary.html#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="sampling-the-imaginary.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simulate) <span class="sc">+</span> </span>
+<span id="cb74-4"><a href="sampling-the-imaginary.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> births) <span class="sc">+</span></span>
+<span id="cb74-5"><a href="sampling-the-imaginary.html#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb74-6"><a href="sampling-the-imaginary.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb74-7"><a href="sampling-the-imaginary.html#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">sum</span>(birth1 <span class="sc">+</span> birth2), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb74-8"><a href="sampling-the-imaginary.html#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(simulate<span class="sc">$</span>births, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb74-9"><a href="sampling-the-imaginary.html#cb74-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Blue line is mean of simulated data, red line is number of boys from data.&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3H3-1.png" width="672" /></p>
+<p><em>3H4. Now compare 10,000 counts of boys from 100 simulated first-borns only to the number of boys in the first births, birth1. How does the model look in this light?</em></p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="sampling-the-imaginary.html#cb75-1" aria-hidden="true" tabindex="-1"></a>simulate <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">births =</span> <span class="fu">rbinom</span>( <span class="dv">10000</span> , <span class="at">size=</span><span class="dv">100</span> , <span class="at">prob=</span>samples ))</span>
+<span id="cb75-2"><a href="sampling-the-imaginary.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="sampling-the-imaginary.html#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simulate) <span class="sc">+</span> </span>
+<span id="cb75-4"><a href="sampling-the-imaginary.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> births) <span class="sc">+</span></span>
+<span id="cb75-5"><a href="sampling-the-imaginary.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb75-6"><a href="sampling-the-imaginary.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb75-7"><a href="sampling-the-imaginary.html#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">sum</span>(birth1), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb75-8"><a href="sampling-the-imaginary.html#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(simulate<span class="sc">$</span>births, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb75-9"><a href="sampling-the-imaginary.html#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Blue line is mean of simulated data, red line is number of first-born boys from data.&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3H4-1.png" width="672" /></p>
+<p><em>3H5. The model assumes that sex of first and second births are independent. To check this assumption, focus now on second births that followed female first borns. Compare 10,000 simulated counts of boys to only those second births that followed girls. To do this correctly, you need to count the number of first borns who were girls and simulate that many births, 10,000 times. Compare the counts of boys in your simulations to the actual observed count of boys following girls. How does the model look in this light? Any guesses what is going on in these data?</em></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="sampling-the-imaginary.html#cb76-1" aria-hidden="true" tabindex="-1"></a>first_born_girls <span class="ot">&lt;-</span> <span class="fu">sum</span>(birth1<span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb76-2"><a href="sampling-the-imaginary.html#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="sampling-the-imaginary.html#cb76-3" aria-hidden="true" tabindex="-1"></a>simulate <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">births =</span> <span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="at">size=</span>first_born_girls, <span class="at">prob=</span>samples))</span>
+<span id="cb76-4"><a href="sampling-the-imaginary.html#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-5"><a href="sampling-the-imaginary.html#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simulate) <span class="sc">+</span> </span>
+<span id="cb76-6"><a href="sampling-the-imaginary.html#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> births) <span class="sc">+</span></span>
+<span id="cb76-7"><a href="sampling-the-imaginary.html#cb76-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb76-8"><a href="sampling-the-imaginary.html#cb76-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb76-9"><a href="sampling-the-imaginary.html#cb76-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">sum</span>(birth1 <span class="sc">+</span> birth2), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb76-10"><a href="sampling-the-imaginary.html#cb76-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(simulate<span class="sc">$</span>births, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb76-11"><a href="sampling-the-imaginary.html#cb76-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Blue line is mean of simulated data, red line is number of first-born girls from data.&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/solve_3H5-1.png" width="672" /></p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="small-worlds-and-large-worlds.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/discindo/statistical_rethinking/edit/main/03-Sampling-the-Imaginary.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
